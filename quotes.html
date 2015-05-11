@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  <script src="./js/backbone.paginator.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <h1>Quoter</h1>
+  <div id="quotes"></div>
+  <script id="quoteTemplate" type="text/template">
+    <div class="quoteBox">
+    <h3><%= source %></h3>
+    <dl>
+        <dt>Theme:</dt><dd><%= theme %></dd><br/>
+        <dt>Context:</dt><dd><%= context %></dd><br/>
+        <dt>Quote:</dt><dd><%= quote %></dd><br/>
+    </dl>
+    </div>
+  </script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+
+<!-- In quotes.html you will need to build a simple backbone.js view to list given quotes. -->
+
+<!-- Please provide the following functionality: -->
+
+<!-- Fetch quotes from source quotes.json and display available information in the list-like structure (table/list) -->
+<!-- Provide client-side pagination (up to 15 quotes per page) -->
+<!-- Optionally: Provide way to filter between game and movie quotes -->
+<!-- Optionally: Provide client-side search filter by the quote text -->
+

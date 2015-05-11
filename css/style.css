@@ -1,0 +1,47 @@
+@import ("https://fonts.googleapis.com/css?family=Raleway:100");
+
+body {
+  background: Gray;
+  color: WhiteSmoke;
+  font-size: 62.5%;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Raleway', Helvetica, Arial, sans-serif;
+  text-align: left;
+  line-height: 31px;
+  width: auto;
+}
+
+.quoteBox {
+  width: 350px;
+  height: 500px;
+  background-color: Black;
+  border-radius: 8px;
+  margin: 20px;
+  padding: 10px;
+  display: inline;
+  float: left;
+}
+
+/* Font-size 72, 36, 24, 18, 14px */
+h1 {
+  text-align: center;
+  font-size: 7.2em;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 3.6em;
+  font-weight: 200;
+}
+
+dt, dd {
+  font-size: 1.8em;
+  font-weight: 100;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
