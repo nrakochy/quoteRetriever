@@ -11,21 +11,28 @@
 <body>
   <h1>Quoter</h1>
   <div id="quotes">
+  </div>
+
     <script id="filterOptionsTemplate" type="text/template">
 
-    <button id="allQuotes">All</button>
-    <button id="gameQuotes">Games</button>
-    <button id="movieQuotes">Movies</button>
-    <button id="firstPage">1</button>
-    <button id="secondPage">2</button>
-    <button id="thirdPage">3</button>
-    <!-- Pagination here -->
+    <div id="filters">
+      <button id="allQuotes">All</button>
+      <button id="gameQuotes">Games</button>
+      <button id="movieQuotes">Movies</button>
+    </div>
+
+    <div id="pageNavigation">
+      <a href id="firstPage">1</a>
+      <a href id="secondPage">2</a>
+      <a href id="lastPage">3</a>
+    </div>
+
     <br/>
     </script>
 
-  </div>
+
   <script id="quoteTemplate" type="text/template">
-  <h3><%= source %></h3>
+    <h3><%= source %></h3>
     <dl>
         <dt>Theme:</dt><dd><%= theme %></dd><br/>
         <dt>Context:</dt><dd><%= context %></dd><br/>

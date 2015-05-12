@@ -12,20 +12,6 @@ body {
   width: auto;
 }
 
-.quote-container, button {
-  padding: 10px;
-  margin: 10px;
-}
-
-.quote-container {
-  background-color: Black;
-  width: 350px;
-  height: 500px;
-  border-radius: 8px;
-  display: inline;
-  float: left;
-}
-
 /* Font-size 72, 36, 24, 18, 14px */
 h1 {
   text-align: center;
@@ -33,26 +19,67 @@ h1 {
   font-weight: 200;
 }
 
+/* Filter Options Template*/
+#filterOptionsTemplate {
+  overflow: hidden;
+}
+
+#filters {
+  position: relative;
+  display: inline-block;
+  font-size: 1.8em;
+  margin: 10px;
+}
+
+#pageNavigation {
+  position: relative;
+  display: inline-block;
+  font-size: 3.6em;
+}
+
 button {
   background-color: none;
   border: none;
   border-radius: 8px;
-  position: relative;
-  left: 10px;
+  font-size: 1.8em;
 }
 
 button:hover{
   text-decoration: none;
   background-color: black;
   color: WhiteSmoke;
+  cursor: pointer;
 }
+
+a {
+  color: WhiteSmoke;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover{
+  color: Black;
+}
+
+/* Quote Container Template*/
+.quote-container {
+  background-color: Black;
+  width: 350px;
+  height: 500px;
+  border-radius: 8px;
+  display: inline;
+  float: left;
+  padding: 10px;
+  margin: 10px;
+}
+
 
 h3 {
   font-size: 3.6em;
   font-weight: 200;
 }
 
-dt, dd, button {
+dt, dd {
   font-size: 1.8em;
   font-weight: 100;
   margin-left: auto;

@@ -80,7 +80,6 @@
     filterView: function(filterQuery){
       filteredCollection = allQuotesCollection.filterModel({theme: filterQuery});
       this.collection = filteredCollection;
-      console.log(this.collection.models);
       this.render();
     },
 
