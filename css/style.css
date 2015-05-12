@@ -4,7 +4,7 @@ body {
   background: Gray;
   color: WhiteSmoke;
   font-size: 62.5%;
-  margin: 0px;
+  margin: 50px;
   padding: 0px;
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
   text-align: left;
@@ -12,13 +12,16 @@ body {
   width: auto;
 }
 
-.quoteBox {
+.quote-container, button {
+  padding: 10px;
+  margin: 10px;
+}
+
+.quote-container {
+  background-color: Black;
   width: 350px;
   height: 500px;
-  background-color: Black;
   border-radius: 8px;
-  margin: 20px;
-  padding: 10px;
   display: inline;
   float: left;
 }
@@ -30,12 +33,26 @@ h1 {
   font-weight: 200;
 }
 
+button {
+  background-color: none;
+  border: none;
+  border-radius: 8px;
+  position: relative;
+  left: 10px;
+}
+
+button:hover{
+  text-decoration: none;
+  background-color: black;
+  color: WhiteSmoke;
+}
+
 h3 {
   font-size: 3.6em;
   font-weight: 200;
 }
 
-dt, dd {
+dt, dd, button {
   font-size: 1.8em;
   font-weight: 100;
   margin-left: auto;

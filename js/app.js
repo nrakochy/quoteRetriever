@@ -16,12 +16,12 @@
 
     state: {
       firstPage: 1,
-      pageSize: 5,
+      pageSize: 50,
     },
 
-    filter: function(attributes){
-      var paredResults = this.where(attributes);
-      return new Quotes(attributes);
+    filterModel: function(attributes){
+      var paredResultsArr = this.where(attributes);
+      return new Quotes(paredResultsArr);
     }
   });
 
@@ -34,36 +34,66 @@
       var tmpl = _.template(this.template);
       $(this.el).html(tmpl(this.model.toJSON()));
       return this;
-    }
+    },
   });
 
   var QuotesView = Backbone.View.extend({
     el: $("#quotes"),
+    events: {
+      "click #allQuotes":  function(){this.resetToAllQuotes()},
+      "click #gameQuotes": function(){ this.filterView("games")},
+      "click #movieQuotes": function(){this.filterView("movies")},
+    },
+
+    remove: function(){
+      this.unbind();
+      this.stopListening();
+      return this;
+    },
 
     render: function(){
-      var quoteModel = this;
-      _.each(this.collection.models, function(quote){
-        quoteModel.renderQuote(quote)
+      if(this.currentView){
+        $(this.el).empty();
+      }
+
+      var display = this;
+      this.currentView = _.each(this.collection.models, function(quote){
+        display.renderQuote(quote)
       }, this);
     },
 
-    renderQuote: function(item){
+    renderQuote: function(quote){
       var quoteView = new QuoteView({
-        model: item
+        model: quote
       });
       this.$el.append(quoteView.render().el);
     },
+
+    filterView: function(filterQuery){
+      filteredCollection = allQuotesCollection.filterModel({theme: filterQuery});
+      this.collection = filteredCollection;
+      console.log(this.collection.models);
+      this.render();
+    },
+
+    resetToAllQuotes: function(){
+      this.collection = allQuotesCollection;
+      this.render();
+    }
   });
 
-  var quotesCollection = new Quotes();
+  var allQuotesCollection = new Quotes();
   var allQuotesDisplay = new QuotesView({
-    collection: quotesCollection
+    collection: allQuotesCollection
   });
 
-  quotesCollection.fetch({
+  var filteredCollection;
+
+  allQuotesCollection.fetch({
     success: function(){
       allQuotesDisplay.render();
     }
   });
+
 
 }(jQuery));
