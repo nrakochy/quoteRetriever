@@ -14,17 +14,16 @@
   </div>
 
     <script id="filterOptionsTemplate" type="text/template">
-
     <div id="filters">
       <button id="allQuotes">All</button>
       <button id="gameQuotes">Games</button>
       <button id="movieQuotes">Movies</button>
     </div>
+    </script>
 
+    <script id="pageLinksTemplate" type="text/template">
     <div id="pageNavigation">
-      <a id="firstPage">1</a>
-      <a id="secondPage">2</a>
-      <a id="lastPage">3</a>
+      <a id="pageNumLink" data-id=<%= pageNum %>><%= pageNum %></a>
     </div>
 
     <br/>

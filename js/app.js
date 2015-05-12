@@ -1,5 +1,6 @@
 (function($) {
 
+  /* Models */
   var Quote = Backbone.Model.extend({
     defaults: {
       "source": "",
@@ -24,6 +25,13 @@
     }
   });
 
+  var PageLink = Backbone.Model.extend({
+    defaults: {
+      "pageNum": "",
+    }
+  });
+
+  /* Views */
   var QuoteView = Backbone.View.extend({
     tagName: "dl",
     className: "quote-container",
@@ -48,41 +56,65 @@
     }
   });
 
+  var PageLinkView = Backbone.View.extend({
+    tagName: "div",
+    className: "links-container",
+    template: $("#pageLinksTemplate").html(),
+
+    render: function(){
+      var tmpl = _.template(this.template);
+      $(this.el).html(tmpl(this.model.toJSON()));
+      return this;
+    }
+  });
+
   var QuotesView = Backbone.View.extend({
     el: $("#quotes"),
     events: {
       "click #allQuotes":  function(){ this.resetToAllQuotes() },
       "click #gameQuotes": function(){ this.filterView("games") },
       "click #movieQuotes": function(){ this.filterView("movies") },
-      "click #firstPage": function(){ this.renderPage(1) },
-      "click #secondPage": function(){ this.renderPage(2) },
-      "click #lastPage": function(){ this.renderPage(3) },
+      "click #pageNumLink": function(){ this.renderPage(event) },
     },
 
     render: function(){
-      if(this.currentView){
-        $(this.el).empty();
-      }
-
       var display = this;
-      var filters = new FilterOptionsView()
-      this.$el.append(filters.render().el)
+      display.clearBinding();
+      display.renderFilters();
+      display.renderPageLinks();
       this.currentView = _.each(this.collection.models, function(quote){
-        display.renderQuote(quote)
+        display.renderQuote(quote);
       }, this);
     },
 
-    renderPageLink: function(quote){
-      var pageLink = new PageLink({
-      });
-      this.$el.append(PageLink.render().el);
+    clearBinding: function(){
+      if(this.currentView){
+        $(this.el).empty();
+      }
     },
 
     renderQuote: function(quote){
-      var quoteView = new QuoteView({
-        model: quote
-      });
+      var quoteView = new QuoteView({ model: quote });
       this.$el.append(quoteView.render().el);
+    },
+
+    renderFilters: function(){
+      var filters = new FilterOptionsView()
+      this.$el.append(filters.render().el)
+    },
+
+    renderPageLinks: function(){
+      for(num = 1; num <= this.collection.state.totalPages; num++){
+        var linkNum = new PageLink({pageNum: num})
+        var link = new PageLinkView({ model: linkNum })
+        this.$el.append(link.render().el)
+      }
+    },
+
+    findNumPages: function(){
+      for(num = 1; num <= this.collection.state.totalPages; num++){
+        var linkNum = new PageLink({pageNum: num})
+      }
     },
 
     filterView: function(filterQuery){
@@ -96,22 +128,24 @@
       this.render();
     },
 
-    renderPage: function(pageNum){
+    renderPage: function(event){
+      var numString = $(event.target).attr("data-id");
+      var pageNum = parseInt(numString);
       collectionPage = displayCollection.getPage(pageNum);
       this.collection = collectionPage;
       this.render();
     }
   });
 
+  var displayCollection;
   var allQuotesCollection = new Quotes();
   var allQuotesDisplay = new QuotesView({
     collection: allQuotesCollection
   });
 
-  var displayCollection;
-
   allQuotesCollection.fetch({
     success: function(){
+      displayCollection = allQuotesCollection;
       allQuotesDisplay.render();
     }
   });
