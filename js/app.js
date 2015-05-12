@@ -15,12 +15,11 @@
     url:"https://gist.githubusercontent.com/anonymous/8f61a8733ed7fa41c4ea/raw/1e90fd2741bb6310582e3822f59927eb535f6c73/quotes.json",
 
     state: {
-      firstPage: 1,
-      pageSize: 50,
+      pageSize: 15,
     },
 
     filterModel: function(attributes){
-      var paredResultsArr = this.where(attributes);
+      var paredResultsArr = this.fullCollection.where(attributes);
       return new Quotes(paredResultsArr);
     }
   });
@@ -55,6 +54,9 @@
       "click #allQuotes":  function(){ this.resetToAllQuotes() },
       "click #gameQuotes": function(){ this.filterView("games") },
       "click #movieQuotes": function(){ this.filterView("movies") },
+      "click #firstPage": function(){ this.renderPage(1) },
+      "click #secondPage": function(){ this.renderPage(2) },
+      "click #lastPage": function(){ this.renderPage(3) },
     },
 
     render: function(){
@@ -70,6 +72,12 @@
       }, this);
     },
 
+    renderPageLink: function(quote){
+      var pageLink = new PageLink({
+      });
+      this.$el.append(PageLink.render().el);
+    },
+
     renderQuote: function(quote){
       var quoteView = new QuoteView({
         model: quote
@@ -78,13 +86,19 @@
     },
 
     filterView: function(filterQuery){
-      filteredCollection = allQuotesCollection.filterModel({theme: filterQuery});
-      this.collection = filteredCollection;
+      displayCollection = allQuotesCollection.filterModel({theme: filterQuery});
+      this.collection = displayCollection;
       this.render();
     },
 
     resetToAllQuotes: function(){
       this.collection = allQuotesCollection;
+      this.render();
+    },
+
+    renderPage: function(pageNum){
+      collectionPage = displayCollection.getPage(pageNum);
+      this.collection = collectionPage;
       this.render();
     }
   });
@@ -94,13 +108,12 @@
     collection: allQuotesCollection
   });
 
-  var filteredCollection;
+  var displayCollection;
 
   allQuotesCollection.fetch({
     success: function(){
       allQuotesDisplay.render();
     }
   });
-
 
 }(jQuery));
