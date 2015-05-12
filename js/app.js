@@ -37,18 +37,24 @@
     },
   });
 
+  var FilterOptionsView = Backbone.View.extend({
+    tagName: "div",
+    className: "filters-container",
+    template: $("#filterOptionsTemplate").html(),
+
+    render: function(){
+      var tmpl = _.template(this.template);
+      $(this.el).html(tmpl);
+      return this;
+    }
+  });
+
   var QuotesView = Backbone.View.extend({
     el: $("#quotes"),
     events: {
-      "click #allQuotes":  function(){this.resetToAllQuotes()},
-      "click #gameQuotes": function(){ this.filterView("games")},
-      "click #movieQuotes": function(){this.filterView("movies")},
-    },
-
-    remove: function(){
-      this.unbind();
-      this.stopListening();
-      return this;
+      "click #allQuotes":  function(){ this.resetToAllQuotes() },
+      "click #gameQuotes": function(){ this.filterView("games") },
+      "click #movieQuotes": function(){ this.filterView("movies") },
     },
 
     render: function(){
@@ -57,6 +63,8 @@
       }
 
       var display = this;
+      var filters = new FilterOptionsView()
+      this.$el.append(filters.render().el)
       this.currentView = _.each(this.collection.models, function(quote){
         display.renderQuote(quote)
       }, this);
